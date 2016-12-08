@@ -26,7 +26,7 @@ def set_wallpaper(src_path):
     reg_key = win32api.RegOpenKey(win32con.HKEY_CURRENT_USER, "Control Panel\\Desktop", 0, win32con.KEY_ALL_ACCESS)
     current_path = win32api.RegQueryValueEx(reg_key, "Wallpaper")[0]
     if current_path != src_path:
-        print("---------set wallpaper：{1}-------".format(current_path, src_path))
+        print("---------set wallpaper：{}-------".format(src_path))
         win32api.RegSetValueEx(reg_key, "WallPaper", 0, win32con.REG_SZ, src_path)
         win32gui.SystemParametersInfo(win32con.SPI_SETDESKWALLPAPER, src_path, 1 + 2)
 
@@ -41,7 +41,7 @@ def save_image(dict):
         image = Image.open(request.urlopen(dict[key])
                            )
         image.save(file_path)
-        print(r"---------save image：{}---------".format(file_path))
+        print("---------save image：{}---------".format(file_path))
         files_path.append(file_path)
     return files_path
 
