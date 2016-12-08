@@ -1,0 +1,2 @@
+# desktopforwin7
+必应获取最近的八张桌面图设置为win7桌面
