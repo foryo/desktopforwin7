@@ -31,15 +31,25 @@ def set_wallpaper(src_path):
         win32gui.SystemParametersInfo(win32con.SPI_SETDESKWALLPAPER, src_path, 1 + 2)
 
 
+def set_watermark(text, image):
+    from PIL import ImageDraw, ImageFont
+    font = ImageFont.truetype('simsun.ttc', 15)
+    draw = ImageDraw.Draw(image)
+    draw.text((10, 10), text, font=font)
+
+
 def save_image(dict):
     files_path = []
+    target_folder = os.getcwd() + "\\" +"picture";
+    if os.path.isdir(target_folder) == False :
+        os.mkdir(target_folder);
     for key in dict.keys():
-        file_path = os.getcwd() + "\\" + key.replace("/", " ") + ".bmp"
+        file_path = target_folder + "\\" + key.replace("/", " ") + ".bmp"
         if os.path.exists(file_path):
             files_path.append(file_path)
             continue
-        image = Image.open(request.urlopen(dict[key])
-                           )
+        image = Image.open(request.urlopen(dict[key]))
+        set_watermark(key,image)
         image.save(file_path)
         print("---------save image：{}---------".format(file_path))
         files_path.append(file_path)
